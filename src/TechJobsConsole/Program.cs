@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace TechJobsConsole
 {
@@ -63,7 +64,17 @@ namespace TechJobsConsole
                     // Fetch results
                     if (columnChoice.Equals("all"))
                     {
-                        Console.WriteLine("Search all fields not yet implemented.");
+                        searchResults = JobData.FindByValue(searchTerm.ToLower());
+
+                        if (searchResults.Count > 0)
+                        {
+                            PrintJobs(searchResults);
+                        }
+
+                        else
+                        {
+                            Console.WriteLine("There were no search results.");
+                        }
                     }
                     else
                     {
@@ -101,6 +112,13 @@ namespace TechJobsConsole
 
                 string input = Console.ReadLine();
                 choiceIdx = int.Parse(input);
+                //int choiceIdx;
+
+                //if (int.TryParse(input, out choiceIdx))
+               // {
+                    //Console.WriteLine("Please enter a number.");
+                //}
+              
 
                 if (choiceIdx < 0 || choiceIdx >= choiceKeys.Length)
                 {
@@ -118,7 +136,33 @@ namespace TechJobsConsole
 
         private static void PrintJobs(List<Dictionary<string, string>> someJobs)
         {
-            Console.WriteLine("printJobs is not implemented yet");
+
+            Console.WriteLine(someJobs.Count);
+
+            int count = 0;
+            
+            //loop over list of each dictionary job
+            foreach (Dictionary<string, string> job in someJobs)
+            {
+
+                Console.WriteLine("*****");
+
+                //loop over each kvp in each dictionary job
+                foreach (KeyValuePair <string, string> item in job)
+                {
+                    
+                    Console.WriteLine(item.Key + ": " + item.Value);
+                    
+                }
+                Console.WriteLine("*****\n");
+                count++;
+            }
+            Console.WriteLine("Total amt of jobs: " + count);
         }
     }
 }
+
+        
+    
+
+
